@@ -7,9 +7,6 @@ import (
 	"golang.org/x/net/html"
 )
 
-var htmlFile, err = os.Open("index.html")
-var z = html.NewTokenizer(htmlFile)
-
 type Link struct {
 	Href string
 	Text string
@@ -17,7 +14,9 @@ type Link struct {
 
 var links []Link
 
-func GetLinks() []Link {
+func GetLinks(path string) []Link {
+	var htmlFile, _ = os.Open(path)
+var z = html.NewTokenizer(htmlFile)
 	for {
 		token := z.Next()
 		if token == html.ErrorToken {
